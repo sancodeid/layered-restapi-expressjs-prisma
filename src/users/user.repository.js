@@ -10,6 +10,9 @@ const findUserById = async (id) => {
     where: {
       id,
     },
+    include: {
+      products: true,
+    },
   });
   return user;
 };

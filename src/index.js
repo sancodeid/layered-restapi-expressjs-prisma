@@ -11,8 +11,10 @@ const PORT = process.env.PORT;
 app.use(express.json());
 
 const userController = require("./users/user.controller");
-
 app.use("/users", userController);
+
+const productController = require("./products/product.controller");
+app.use("/products", productController);
 
 app.get("/api", (req, res) => {
   res.send("Welcome to my API");

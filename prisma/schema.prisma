@@ -14,10 +14,38 @@ datasource db {
 }
 
 model User {
-  id       Int    @id @default(autoincrement())
+  id       Int       @id @default(autoincrement())
   name     String
   email    String
   password String
-  phone    String
+  phone    String    @db.VarChar(15)
   address  String
+  products Product[]
 }
+
+model Product {
+  id          Int      @id @default(autoincrement())
+  name        String   @db.VarChar(255)
+  description String   @db.Text
+  price       Decimal  @db.Decimal(10, 2)
+  stock       Int      @default(0)
+  category    String
+  seller      User     @relation(fields: [sellerId], references: [id])
+  sellerId    Int
+  images      String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+//  model ProductImage {
+//    id        Int     @id @default(autoincrement())
+//    imageUrl  String  @db.VarChar(255)
+//    isPrimary Boolean @default(false)
+//    product   Product @relation(fields: [productId], references: [id])
+//    productId Int
+// }
+//
+//  model Category {
+//    id       Int       @id @default(autoincrement())
+//    name     String    @db.VarChar(255)
+// }
